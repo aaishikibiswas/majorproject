@@ -1,0 +1,8 @@
+# Ignore OS temp files & credentials
+.DS_Store
+Thumbs.db
+*.tmp
+*.log
+.env
+.vscode/
+.agents/

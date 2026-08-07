@@ -1,0 +1,37 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowLexBotDeployment",
+      "Effect": "Allow",
+      "Action": [
+        "lex:CreateBot",
+        "lex:CreateBotAlias",
+        "lex:CreateBotLocale",
+        "lex:CreateBotVersion",
+        "lex:CreateIntent",
+        "lex:CreateSlot",
+        "lex:CreateSlotType",
+        "lex:BuildBotLocale",
+        "lex:DescribeBot",
+        "lex:DescribeBotLocale",
+        "lex:ListBots",
+        "lex:ListSlots",
+        "lex:UpdateIntent",
+        "lex:UpdateSlot"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "AllowLexServiceRoleSetup",
+      "Effect": "Allow",
+      "Action": [
+        "iam:GetRole",
+        "iam:CreateRole",
+        "iam:AttachRolePolicy",
+        "iam:PassRole"
+      ],
+      "Resource": "arn:aws:iam::*:role/MajorProjectHotelBookingBot-Role"
+    }
+  ]
+}
