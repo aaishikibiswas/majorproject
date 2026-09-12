@@ -43,13 +43,13 @@ Clear-Host
 Write-Host "==========================================================================" -ForegroundColor Cyan
 Write-Host " 🏨 ENTERPRISE AWS LEX V2 CHATBOT DEMO: GRAND HOTEL AND SUITES" -ForegroundColor Yellow
 Write-Host " Bot ID: $BOT_ID | Region: $REGION | Locale: $LOCALE_ID" -ForegroundColor Gray
-Write-Host "--------------------------------------------------------------------------" -ForegroundColor Gray
 Write-Host " 🌟 ENTERPRISE FEATURES SHOWCASED:" -ForegroundColor Green
-Write-Host "   1. Dynamic Billing and Itemized 12% Tax Calculator" -ForegroundColor White
+Write-Host "   1. Dynamic Billing and Itemized Tax Calculator (18% GST / 12% Tax / VAT)" -ForegroundColor White
 Write-Host "   2. Automated Digital Receipt File Generation (.txt)" -ForegroundColor White
 Write-Host "   3. SMS (+91-9876543210) and Email (aaishiki@example.com) Alerts" -ForegroundColor White
-Write-Host "   4. Guest Loyalty and Personalization ($UserName | Gold VIP)" -ForegroundColor White
-Write-Host "   5. Comprehensive AI QnA (Pets, Pool, Baths, Dining, Parking)" -ForegroundColor White
+Write-Host "   4. Guest Loyalty & Session Attribute Personalization ($UserName | Gold VIP)" -ForegroundColor White
+Write-Host "   5. Comprehensive AI QnA (Pets, Pool, Baths, Dining, Parking, Wi-Fi)" -ForegroundColor White
+Write-Host "   6. Amazon Bedrock Assisted NLU & Generative Intent Disambiguation" -ForegroundColor White
 Write-Host "==========================================================================" -ForegroundColor Cyan
 Write-Host ""
 
