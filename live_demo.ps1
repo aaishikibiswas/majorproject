@@ -185,9 +185,10 @@ else {
             --region $REGION `
             --output json | ConvertFrom-Json
 
-        # Handle FallbackIntent or general questions
+        # Handle FallbackIntent or general questions using Live Amazon Bedrock Generative AI
         if ($res.sessionState.intent.name -eq "FallbackIntent") {
-            Write-Host '🤖 Bot [Bedrock QnA AI] : I am your Grand Hotel Assistant! You can ask about our amenities (baths, pool, pets, dining, parking, Wi-Fi, check-in) or say "I want to book a room" to make a reservation.' -ForegroundColor Cyan
+            $bedrockAns = python test_bedrock.py --ask "$userText"
+            Write-Host "🤖 Bot [Bedrock QnA AI] : $bedrockAns" -ForegroundColor Cyan
             continue
         }
 
