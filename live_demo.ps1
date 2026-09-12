@@ -153,45 +153,7 @@ else {
             break
         }
 
-        # Comprehensive Policy, Amenity, and QnA Handlers
-        if ($userText -match "bath|shower|tub|washroom|toilet|bathroom|jacuzzi") {
-            Write-Host '🤖 Bot [Bedrock QnA AI] : All rooms include a luxury private bathroom with a marble bathtub, rainfall shower, and premium toiletries!' -ForegroundColor Cyan
-            continue
-        }
-        if ($userText -match "food|eat|restaurant|dining|dinner|lunch|breakfast|room service|bar|drink") {
-            Write-Host '🤖 Bot [Bedrock QnA AI] : Our 24/7 room service and rooftop restaurant offer fine dining, buffet breakfast, and international cuisine.' -ForegroundColor Cyan
-            continue
-        }
-        if ($userText -match "park|car|valet|vehicle|parking") {
-            Write-Host '🤖 Bot [Bedrock QnA AI] : Free 24/7 valet parking is available for all registered hotel guests.' -ForegroundColor Cyan
-            continue
-        }
-        if ($userText -match "pet|animal|dog|cat|pets") {
-            Write-Host '🤖 Bot [Bedrock QnA AI] : Yes! Pets are welcome at Grand Hotel ($50 fee per stay). Guide dogs stay free.' -ForegroundColor Cyan
-            continue
-        }
-        if ($userText -match "pool|swim|spa|gym|fitness|sauna") {
-            Write-Host '🤖 Bot [Bedrock QnA AI] : Our heated pool, luxury spa, and 24/7 fitness center are open daily 6:00 AM to 10:00 PM.' -ForegroundColor Cyan
-            continue
-        }
-        if ($userText -match "check|time|out|in|reception|lobby|front desk") {
-            Write-Host '🤖 Bot [Bedrock QnA AI] : Standard check-in is at 3:00 PM and Check-out is at 11:00 AM. 24/7 front desk service is available.' -ForegroundColor Cyan
-            continue
-        }
-        if ($userText -match "wifi|internet|speed") {
-            Write-Host '🤖 Bot [Bedrock QnA AI] : Complimentary high-speed Wi-Fi (500 Mbps) is included in all rooms.' -ForegroundColor Cyan
-            continue
-        }
-        if ($userText -match "cancel|status|reference") {
-            Write-Host '🤖 Bot [Reservation AI] : Please enter your Booking Reference Code (e.g. #HB-94821) to check or modify your reservation.' -ForegroundColor Cyan
-            continue
-        }
-        if ($userText -match "address|location|where|city|airport|taxi") {
-            Write-Host '🤖 Bot [Bedrock QnA AI] : Grand Hotel is located in prime downtown city locations with direct airport shuttle service.' -ForegroundColor Cyan
-            continue
-        }
-
-        # Send to Amazon Lex V2
+        # Send to Amazon Lex V2 & Amazon Bedrock Generative AI
         $res = python -m awscli lexv2-runtime recognize-text `
             --bot-id $BOT_ID `
             --bot-alias-id $BOT_ALIAS_ID `
@@ -201,7 +163,7 @@ else {
             --region $REGION `
             --output json | ConvertFrom-Json
 
-        # Handle FallbackIntent or general questions using Live Amazon Bedrock Generative AI
+        # If Lex triggers FallbackIntent, delegate dynamically to AWS Bedrock AI Model
         if ($res.sessionState.intent.name -eq "FallbackIntent") {
             $bedrockAns = python test_bedrock.py --ask "$userText"
             Write-Host "🤖 Bot [Bedrock QnA AI] : $bedrockAns" -ForegroundColor Cyan
