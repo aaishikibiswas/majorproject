@@ -102,6 +102,10 @@ if ($Mode -eq "auto") {
         }
     }
 
+    $fmtSubtotal = "{0:N2}" -f $subtotal
+    $fmtTax = "{0:N2}" -f $tax
+    $fmtTotal = "{0:N2}" -f $total
+
     # Itemized Billing and Receipt Output
     Write-Host "`n--------------------------------------------------------------------------" -ForegroundColor Gray
     Write-Host "📄 GENERATING DIGITAL BOOKING RECEIPT AND ALERTS..." -ForegroundColor Yellow
@@ -119,13 +123,13 @@ if ($Mode -eq "auto") {
     Write-Host "Duration of Stay  : $nights Night(s)" -ForegroundColor Green
     Write-Host "Room Category     : $room (`$$rate / night)" -ForegroundColor Green
     Write-Host "------------------------------------------------------------" -ForegroundColor Green
-    Write-Host "Room Subtotal     : `$$subtotal.00" -ForegroundColor Green
-    Write-Host "State Tax & Fees  : `$$tax (12% GST/Tax)" -ForegroundColor Green
-    Write-Host "TOTAL AMOUNT DUE  : `$$total.00" -ForegroundColor Green
+    Write-Host "Room Subtotal     : `$$fmtSubtotal" -ForegroundColor Green
+    Write-Host "Local Tax / Fees  : `$$fmtTax (12% US Occupancy Tax)" -ForegroundColor Green
+    Write-Host "TOTAL AMOUNT DUE  : `$$fmtTotal" -ForegroundColor Green
     Write-Host "Payment Status    : PAID VIA VIP ACCOUNT" -ForegroundColor Green
     Write-Host "============================================================" -ForegroundColor Green
     
-    $receiptContent = "GRAND HOTEL BOOKING RECEIPT`nRef: #$bookingId`nGuest: $UserName`nCity: $city`nDates: $date ($nights Nights)`nRoom: $room`nSubtotal: `$$subtotal.00`nTax: `$$tax`nTotal: `$$total.00"
+    $receiptContent = "GRAND HOTEL BOOKING RECEIPT`nRef: #$bookingId`nGuest: $UserName`nCity: $city`nDates: $date ($nights Nights)`nRoom: $room`nSubtotal: `$$fmtSubtotal`nTax: `$$fmtTax`nTotal: `$$fmtTotal"
     $receiptPath = "C:\Users\Aaishiki\Desktop\major\Receipt_$bookingId.txt"
     $receiptContent | Out-File -FilePath $receiptPath
     
@@ -243,6 +247,10 @@ else {
             $total = $subtotal + $tax
             $bookingId = "HB-" + (Get-Random -Minimum 10000 -Maximum 99999)
 
+            $fmtSubtotal = "{0:N2}" -f $subtotal
+            $fmtTax = "{0:N2}" -f $tax
+            $fmtTotal = "{0:N2}" -f $total
+
             Write-Host "`n--------------------------------------------------------------------------" -ForegroundColor Gray
             Write-Host "📄 GENERATING DIGITAL BOOKING RECEIPT AND ALERTS..." -ForegroundColor Yellow
             
@@ -259,13 +267,13 @@ else {
             Write-Host "Duration of Stay  : $CurrentNights Night(s)" -ForegroundColor Green
             Write-Host "Room Category     : $CurrentRoom (`$$rate / night)" -ForegroundColor Green
             Write-Host "------------------------------------------------------------" -ForegroundColor Green
-            Write-Host "Room Subtotal     : `$$subtotal.00" -ForegroundColor Green
-            Write-Host "Local Tax / Fees  : `$$tax ($taxLabel)" -ForegroundColor Green
-            Write-Host "TOTAL AMOUNT DUE  : `$$total.00" -ForegroundColor Green
+            Write-Host "Room Subtotal     : `$$fmtSubtotal" -ForegroundColor Green
+            Write-Host "Local Tax / Fees  : `$$fmtTax ($taxLabel)" -ForegroundColor Green
+            Write-Host "TOTAL AMOUNT DUE  : `$$fmtTotal" -ForegroundColor Green
             Write-Host "Payment Status    : PAID VIA VIP ACCOUNT" -ForegroundColor Green
             Write-Host "============================================================" -ForegroundColor Green
             
-            $receiptContent = "GRAND HOTEL BOOKING RECEIPT`nRef: #$bookingId`nGuest: $UserName`nCity: $CurrentCity`nDuration: $CurrentNights Nights`nRoom: $CurrentRoom`nSubtotal: `$$subtotal.00`nTax: `$$tax`nTotal: `$$total.00"
+            $receiptContent = "GRAND HOTEL BOOKING RECEIPT`nRef: #$bookingId`nGuest: $UserName`nCity: $CurrentCity`nDuration: $CurrentNights Nights`nRoom: $CurrentRoom`nSubtotal: `$$fmtSubtotal`nTax: `$$fmtTax`nTotal: `$$fmtTotal"
             $receiptPath = "C:\Users\Aaishiki\Desktop\major\Receipt_$bookingId.txt"
             $receiptContent | Out-File -FilePath $receiptPath
             
