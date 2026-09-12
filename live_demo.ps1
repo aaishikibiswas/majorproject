@@ -1,5 +1,10 @@
-# 🏨 Amazon Lex V2 HotelBookingBot - Ultimate Presentation Script
-# Showcase: VIP Personalization | NLU Synonym Resolution | Dynamic 12% Tax Billing | Digital Receipt | SMS Alerts | Bedrock AI Policy QnA | Polly Voice Joanna
+# 🏨 Amazon Lex V2 HotelBookingBot - Master Presentation and Demo Script
+# Showcases:
+# 1. Dynamic Billing and 12% Tax Calculator
+# 2. Digital Receipt (.txt file generation)
+# 3. SMS and Email Notification Alerts
+# 4. Guest Loyalty and Personalization (Session Attributes)
+# 5. Policy AI and Cancellation Management
 
 param(
     [string]$Mode = "interactive",
@@ -14,6 +19,16 @@ $LOCALE_ID = "en_US"
 $REGION = "us-east-1"
 $SESSION_ID = "session-demo-" + (Get-Random)
 
+# Session Attributes for Personalization and Identity
+$SessionAttributes = @{
+    "userName" = $UserName
+    "userEmail" = $UserEmail
+    "userPhone" = $UserPhone
+    "memberStatus" = "Gold VIP Member"
+    "previousCity" = "Chicago"
+    "previousRoom" = "Duplex"
+}
+
 # Room Nightly Rates Dictionary
 $Rates = @{
     "Classic"   = 100
@@ -25,23 +40,21 @@ $Rates = @{
 
 Clear-Host
 Write-Host "==========================================================================" -ForegroundColor Cyan
-Write-Host " 🏨 AWS MAJOR PROJECT DEMONSTRATION: AMAZON LEX V2 HOTEL BOOKING CHATBOT" -ForegroundColor Yellow
+Write-Host " 🏨 ENTERPRISE AWS LEX V2 CHATBOT DEMO: GRAND HOTEL AND SUITES" -ForegroundColor Yellow
 Write-Host " Bot ID: $BOT_ID | Region: $REGION | Locale: $LOCALE_ID" -ForegroundColor Gray
 Write-Host "--------------------------------------------------------------------------" -ForegroundColor Gray
-Write-Host " ACTIVE PROJECT FEATURES SHOWCASED:" -ForegroundColor Green
-Write-Host "   1. Amazon Polly Voice Engine ('Joanna' Standard TTS)" -ForegroundColor White
-Write-Host "   2. Audio Filler Processing ('MELODY_CHIPPER_CHIME')" -ForegroundColor White
-Write-Host "   3. Assisted NLU Fallback Mode (Confidence Threshold = 0.40)" -ForegroundColor White
-Write-Host "   4. TopResolution Synonym Mapping ('two story' -> Duplex)" -ForegroundColor White
-Write-Host "   5. VIP Guest Personalization ($UserName)" -ForegroundColor White
-Write-Host "   6. Dynamic Itemized Billing and 12% State Tax Calculation" -ForegroundColor White
-Write-Host "   7. Automated Digital Receipt (.txt file) and SMS/Email Alerts" -ForegroundColor White
-Write-Host "   8. Bedrock AI Policy QnA (Pets, Pool, Check-in, WiFi queries)" -ForegroundColor White
+Write-Host " 🌟 5 ENTERPRISE FEATURES SHOWCASED:" -ForegroundColor Green
+Write-Host "   1. Dynamic Billing and Itemized 12% Tax Calculator" -ForegroundColor White
+Write-Host "   2. Automated Digital Receipt File Generation (.txt)" -ForegroundColor White
+Write-Host "   3. SMS (+91-9876543210) and Email (aaishiki@example.com) Alerts" -ForegroundColor White
+Write-Host "   4. Guest Loyalty and Personalization ($UserName | Gold VIP)" -ForegroundColor White
+Write-Host "   5. Policy AI QnA (Pets, Pool, WiFi) and Cancellation Management" -ForegroundColor White
 Write-Host "==========================================================================" -ForegroundColor Cyan
 Write-Host ""
 
-# Personalization Greeting
-Write-Host "👤 Guest Identity Recognized: $UserName (Gold VIP Member | $UserEmail)" -ForegroundColor Green
+# Feature 4: Guest Loyalty and Personalization (VIP Recognition)
+Write-Host "👑 [Feature 4] Guest Identity Recognized via Session Attributes:" -ForegroundColor Green
+Write-Host "   Name: $UserName | Status: Gold VIP Member | Email: $UserEmail" -ForegroundColor White
 Write-Host "🤖 Bot (Polly Voice: Joanna) : Welcome back $UserName! Would you like to book a room at Grand Hotel and Suites today?" -ForegroundColor Cyan
 Write-Host ""
 
@@ -87,9 +100,9 @@ if ($Mode -eq "auto") {
         }
     }
 
-    # Itemized Receipt Generation
+    # Feature 1, 2 and 3: Dynamic Billing, Digital Receipt, SMS/Email Alerts
     Write-Host "`n--------------------------------------------------------------------------" -ForegroundColor Gray
-    Write-Host "📄 GENERATING DIGITAL BOOKING RECEIPT AND ALERTS..." -ForegroundColor Yellow
+    Write-Host "📄 [Feature 1, 2 and 3] GENERATING DIGITAL BOOKING RECEIPT AND ALERTS..." -ForegroundColor Yellow
     
     Write-Host "============================================================" -ForegroundColor Green
     Write-Host "           GRAND HOTEL AND SUITES - BOOKING RECEIPT           " -ForegroundColor Green
@@ -119,7 +132,7 @@ if ($Mode -eq "auto") {
     Write-Host "💾 Saved digital receipt to: $receiptPath" -ForegroundColor Gray
 }
 else {
-    Write-Host "💬 Live Interactive Mode (Try typing 'two story room' for slot resolution or ask policy questions!)" -ForegroundColor Green
+    Write-Host "💬 Live Interactive Mode (Try asking policy questions or booking a room!)" -ForegroundColor Green
     Write-Host "   Type 'exit' or 'quit' anytime to end the chat." -ForegroundColor Gray
     Write-Host "--------------------------------------------------------------------------" -ForegroundColor Gray
 
@@ -132,21 +145,21 @@ else {
             break
         }
 
-        # Policy QnA Handler
+        # Feature 5: Policy AI and Cancellation Management
         if ($userText -match "pet|animal|dog|cat") {
-            Write-Host "🤖 Bot (Bedrock QnA AI) : Yes! Pets are welcome ($50 fee/stay). Guide dogs stay free." -ForegroundColor Cyan
+            Write-Host "🤖 Bot [Feature 5: Policy AI] : Yes! Pets are welcome ($50 fee/stay). Guide dogs stay free." -ForegroundColor Cyan
             continue
         }
         if ($userText -match "pool|swim|spa|gym") {
-            Write-Host "🤖 Bot (Bedrock QnA AI) : Our heated pool, spa, and 24/7 fitness center are open 6 AM - 10 PM daily." -ForegroundColor Cyan
+            Write-Host "🤖 Bot [Feature 5: Policy AI] : Our heated pool, spa, and 24/7 fitness center are open 6 AM - 10 PM daily." -ForegroundColor Cyan
             continue
         }
         if ($userText -match "check|time|out|in") {
-            Write-Host "🤖 Bot (Bedrock QnA AI) : Check-in is at 3:00 PM and Check-out is at 11:00 AM." -ForegroundColor Cyan
+            Write-Host "🤖 Bot [Feature 5: Policy AI] : Check-in is at 3:00 PM and Check-out is at 11:00 AM." -ForegroundColor Cyan
             continue
         }
-        if ($userText -match "wifi|internet|breakfast") {
-            Write-Host "🤖 Bot (Bedrock QnA AI) : Free high-speed Wi-Fi and daily buffet breakfast are included for all guests!" -ForegroundColor Cyan
+        if ($userText -match "cancel|status") {
+            Write-Host "🤖 Bot [Feature 5: Cancellation AI] : Please enter your Booking Reference Code (e.g. #HB-94821) to check or modify your reservation." -ForegroundColor Cyan
             continue
         }
 
