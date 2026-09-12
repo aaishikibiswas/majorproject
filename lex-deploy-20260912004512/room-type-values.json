@@ -1,0 +1,67 @@
+﻿[
+    {
+        "sampleValue":  {
+                            "value":  "Classic"
+                        },
+        "synonyms":  [
+                         {
+                             "value":  "standard"
+                         },
+                         {
+                             "value":  "basic"
+                         }
+                     ]
+    },
+    {
+        "sampleValue":  {
+                            "value":  "Deluxe"
+                        },
+        "synonyms":  [
+                         {
+                             "value":  "premium"
+                         },
+                         {
+                             "value":  "superior"
+                         }
+                     ]
+    },
+    {
+        "sampleValue":  {
+                            "value":  "Duplex"
+                        },
+        "synonyms":  [
+                         {
+                             "value":  "two level"
+                         },
+                         {
+                             "value":  "suite"
+                         }
+                     ]
+    },
+    {
+        "sampleValue":  {
+                            "value":  "Family Suite"
+                        },
+        "synonyms":  [
+                         {
+                             "value":  "family room"
+                         },
+                         {
+                             "value":  "large suite"
+                         }
+                     ]
+    },
+    {
+        "sampleValue":  {
+                            "value":  "Presidential Suite"
+                        },
+        "synonyms":  [
+                         {
+                             "value":  "luxury suite"
+                         },
+                         {
+                             "value":  "executive suite"
+                         }
+                     ]
+    }
+]

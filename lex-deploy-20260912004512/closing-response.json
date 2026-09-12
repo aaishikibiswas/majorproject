@@ -1,0 +1,14 @@
+﻿{
+    "closingResponse":  {
+                            "messageGroups":  [
+                                                  {
+                                                      "message":  {
+                                                                      "plainTextMessage":  {
+                                                                                               "value":  "Thanks. Your hotel booking details have been confirmed and the room price and stay duration have been shared."
+                                                                                           }
+                                                                  }
+                                                  }
+                                              ],
+                            "allowInterrupt":  true
+                        }
+}

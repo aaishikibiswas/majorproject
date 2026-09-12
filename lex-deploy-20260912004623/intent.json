@@ -1,0 +1,9 @@
+﻿{
+    "messages":  [
+                     {
+                         "plainTextMessage":  {
+                                                  "value":  "Your hotel room is booked. Booking summary: {Nights} night(s) from {CheckInDate} to {CheckOutDate} for {Guests} guest(s) in a {RoomType} room. Estimated room price per night: Classic USD 80, Deluxe USD 120, Duplex USD 180, Family Suite USD 220, Presidential Suite USD 350. Please check the selected category to calculate the total for your stay."
+                                              }
+                     }
+                 ]
+}
