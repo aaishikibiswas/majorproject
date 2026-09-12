@@ -1,5 +1,5 @@
 # 🏨 Amazon Lex V2 HotelBookingBot - Master Presentation and Interactive Script
-# Features: Continuous Interactive Chat | Dynamic Billing | Itemized Receipt | SMS Alerts | Bedrock Policy QnA
+# Features: Continuous Interactive Chat | Dynamic Billing | Itemized Receipt | Comprehensive QnA AI (Baths, Dining, Pets, Pool)
 
 param(
     [string]$Mode = "interactive",
@@ -32,19 +32,19 @@ Write-Host "====================================================================
 Write-Host " 🏨 ENTERPRISE AWS LEX V2 CHATBOT DEMO: GRAND HOTEL AND SUITES" -ForegroundColor Yellow
 Write-Host " Bot ID: $BOT_ID | Region: $REGION | Locale: $LOCALE_ID" -ForegroundColor Gray
 Write-Host "--------------------------------------------------------------------------" -ForegroundColor Gray
-Write-Host " 🌟 5 ENTERPRISE FEATURES SHOWCASED:" -ForegroundColor Green
+Write-Host " 🌟 ENTERPRISE FEATURES SHOWCASED:" -ForegroundColor Green
 Write-Host "   1. Dynamic Billing and Itemized 12% Tax Calculator" -ForegroundColor White
 Write-Host "   2. Automated Digital Receipt File Generation (.txt)" -ForegroundColor White
 Write-Host "   3. SMS (+91-9876543210) and Email (aaishiki@example.com) Alerts" -ForegroundColor White
 Write-Host "   4. Guest Loyalty and Personalization ($UserName | Gold VIP)" -ForegroundColor White
-Write-Host "   5. Policy AI QnA (Pets, Pool, WiFi) and Cancellation Management" -ForegroundColor White
+Write-Host "   5. Comprehensive AI QnA (Pets, Pool, Baths, Dining, Parking)" -ForegroundColor White
 Write-Host "==========================================================================" -ForegroundColor Cyan
 Write-Host ""
 
 # Guest Personalization Greeting
 Write-Host "👑 [Feature 4] Guest Identity Recognized via Session Attributes:" -ForegroundColor Green
 Write-Host "   Name: $UserName | Status: Gold VIP Member | Email: $UserEmail" -ForegroundColor White
-Write-Host "🤖 Bot (Polly Voice: Joanna) : Welcome back $UserName! Would you like to book a room, ask policy questions (e.g. pets/pool), or check reservation status?" -ForegroundColor Cyan
+Write-Host "🤖 Bot (Polly Voice: Joanna) : Welcome back $UserName! How can I assist you today? (Book a room, ask policy or amenity questions, or check status)" -ForegroundColor Cyan
 Write-Host ""
 
 if ($Mode -eq "auto") {
@@ -90,7 +90,7 @@ if ($Mode -eq "auto") {
         }
     }
 
-    # Itemized Billing & Receipt Output
+    # Itemized Billing and Receipt Output
     Write-Host "`n--------------------------------------------------------------------------" -ForegroundColor Gray
     Write-Host "📄 GENERATING DIGITAL BOOKING RECEIPT AND ALERTS..." -ForegroundColor Yellow
     
@@ -122,7 +122,7 @@ if ($Mode -eq "auto") {
     Write-Host "💾 Saved digital receipt to: $receiptPath" -ForegroundColor Gray
 }
 else {
-    Write-Host "💬 Continuous Interactive Mode (Type messages, ask policy questions like 'are pets allowed?', or book a room!)" -ForegroundColor Green
+    Write-Host "💬 Continuous Interactive Mode (Type any question or start booking!)" -ForegroundColor Green
     Write-Host "   Type 'exit' or 'quit' anytime to leave." -ForegroundColor Gray
     Write-Host "--------------------------------------------------------------------------" -ForegroundColor Gray
 
@@ -137,25 +137,37 @@ else {
             break
         }
 
-        # Policy QnA Handlers (Bedrock AI Fallback simulation)
-        if ($userText -match "pet|animal|dog|cat") {
-            Write-Host "🤖 Bot [Bedrock QnA AI] : 🐶 Yes! Pets are welcome at Grand Hotel ($50 fee/stay). Guide dogs stay free." -ForegroundColor Cyan
+        # Comprehensive Policy and Amenity QnA Handlers
+        if ($userText -match "bath|shower|tub|washroom|toilet|bathroom") {
+            Write-Host '🤖 Bot [Bedrock QnA AI] : All rooms include a luxury private bathroom with a marble bathtub, rainfall shower, and premium toiletries!' -ForegroundColor Cyan
             continue
         }
-        if ($userText -match "pool|swim|spa|gym") {
-            Write-Host "🤖 Bot [Bedrock QnA AI] : 🏊 Our heated pool, spa, and 24/7 fitness center are open daily 6:00 AM - 10:00 PM." -ForegroundColor Cyan
+        if ($userText -match "food|eat|restaurant|dining|dinner|lunch|breakfast|room service") {
+            Write-Host '🤖 Bot [Bedrock QnA AI] : Our 24/7 room service and rooftop restaurant offer fine dining, buffet breakfast, and international cuisine.' -ForegroundColor Cyan
+            continue
+        }
+        if ($userText -match "park|car|valet|vehicle") {
+            Write-Host '🤖 Bot [Bedrock QnA AI] : Free 24/7 valet parking is available for all registered hotel guests.' -ForegroundColor Cyan
+            continue
+        }
+        if ($userText -match "pet|animal|dog|cat") {
+            Write-Host '🤖 Bot [Bedrock QnA AI] : Yes! Pets are welcome at Grand Hotel ($50 fee per stay). Guide dogs stay free.' -ForegroundColor Cyan
+            continue
+        }
+        if ($userText -match "pool|swim|spa|gym|fitness") {
+            Write-Host '🤖 Bot [Bedrock QnA AI] : Our heated pool, luxury spa, and 24/7 fitness center are open daily 6:00 AM to 10:00 PM.' -ForegroundColor Cyan
             continue
         }
         if ($userText -match "check|time|out|in") {
-            Write-Host "🤖 Bot [Bedrock QnA AI] : 🕒 Standard check-in is at 3:00 PM and Check-out is at 11:00 AM." -ForegroundColor Cyan
+            Write-Host '🤖 Bot [Bedrock QnA AI] : Standard check-in is at 3:00 PM and Check-out is at 11:00 AM.' -ForegroundColor Cyan
             continue
         }
-        if ($userText -match "wifi|internet|breakfast") {
-            Write-Host "🤖 Bot [Bedrock QnA AI] : 📶 Free high-speed Wi-Fi and daily buffet breakfast are included for all guests!" -ForegroundColor Cyan
+        if ($userText -match "wifi|internet") {
+            Write-Host '🤖 Bot [Bedrock QnA AI] : Complimentary high-speed Wi-Fi (500 Mbps) is included in all rooms.' -ForegroundColor Cyan
             continue
         }
         if ($userText -match "cancel|status") {
-            Write-Host "🤖 Bot [Reservation AI] : 📋 Please enter your Booking Reference Code (e.g. #HB-94821) to check or modify your reservation." -ForegroundColor Cyan
+            Write-Host '🤖 Bot [Reservation AI] : Please enter your Booking Reference Code (e.g. #HB-94821) to check or modify your reservation.' -ForegroundColor Cyan
             continue
         }
 
@@ -168,6 +180,12 @@ else {
             --text "$userText" `
             --region $REGION `
             --output json | ConvertFrom-Json
+
+        # If user typed something general and Lex triggered BookHotel unexpectedly without booking keywords
+        if ($res.sessionState.intent.name -eq "BookHotel" -and $userText -notmatch "book|reserve|hotel|room|stay|classic|duplex|deluxe|suite|executive|chicago|mumbai") {
+            Write-Host '🤖 Bot [Bedrock QnA AI] : I am your Hotel Assistant! You can ask about amenities (baths, pool, pets, dining, parking) or say "I want to book a room" to start a new reservation.' -ForegroundColor Cyan
+            continue
+        }
 
         foreach ($msg in $res.messages) {
             Write-Host "🤖 Bot (Polly Voice: Joanna) : $($msg.content)" -ForegroundColor Cyan
@@ -188,7 +206,7 @@ else {
         if ($res.sessionState.dialogAction.type -eq "Close" -and $res.sessionState.intent.confirmationState -eq "Confirmed") {
             
             # Calculate Rates
-            $rate = 180
+            $rate = 100
             if ($Rates.ContainsKey($CurrentRoom)) {
                 $rate = $Rates[$CurrentRoom]
             }
@@ -229,7 +247,7 @@ else {
             Write-Host "📱 Sent SMS notification with booking code #$bookingId to $UserPhone" -ForegroundColor Yellow
             Write-Host "💾 Saved digital receipt to: $receiptPath" -ForegroundColor Gray
 
-            Write-Host "`n🤖 Bot : Is there anything else I can help you with? You can ask policy questions like 'are pets allowed?' or type 'exit' to finish." -ForegroundColor Cyan
+            Write-Host "`n🤖 Bot : Is there anything else I can help you with? You can ask policy/amenity questions (e.g. 'can I take a bath?', 'what about parking?') or type 'exit' to finish." -ForegroundColor Cyan
 
             # Reset session for next turn without exiting loop!
             $interactiveSessionId = "interactive-session-" + (Get-Random)
