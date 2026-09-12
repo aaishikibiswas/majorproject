@@ -1,5 +1,5 @@
-# 🏨 Amazon Lex V2 HotelBookingBot - Enterprise Real-World Live Presentation Script
-# Features: Dynamic Billing + 12% Tax | Add-ons | Digital Receipt | SMS/Email Alerts | Personalization | QnA AI
+# 🏨 Amazon Lex V2 HotelBookingBot - Ultimate Presentation Script
+# Showcase: VIP Personalization | NLU Synonym Resolution | Dynamic 12% Tax Billing | Digital Receipt | SMS Alerts | Bedrock AI Policy QnA | Polly Voice Joanna
 
 param(
     [string]$Mode = "interactive",
@@ -25,15 +25,24 @@ $Rates = @{
 
 Clear-Host
 Write-Host "==========================================================================" -ForegroundColor Cyan
-Write-Host " 🏨 ENTERPRISE AWS LEX V2 CHATBOT DEMO: GRAND HOTEL & SUITES" -ForegroundColor Yellow
+Write-Host " 🏨 AWS MAJOR PROJECT DEMONSTRATION: AMAZON LEX V2 HOTEL BOOKING CHATBOT" -ForegroundColor Yellow
 Write-Host " Bot ID: $BOT_ID | Region: $REGION | Locale: $LOCALE_ID" -ForegroundColor Gray
-Write-Host " Features: Dynamic Billing | 12% Tax Calculation | Digital Receipt | SMS Alert" -ForegroundColor Green
+Write-Host "--------------------------------------------------------------------------" -ForegroundColor Gray
+Write-Host " ACTIVE PROJECT FEATURES SHOWCASED:" -ForegroundColor Green
+Write-Host "   1. Amazon Polly Voice Engine ('Joanna' Standard TTS)" -ForegroundColor White
+Write-Host "   2. Audio Filler Processing ('MELODY_CHIPPER_CHIME')" -ForegroundColor White
+Write-Host "   3. Assisted NLU Fallback Mode (Confidence Threshold = 0.40)" -ForegroundColor White
+Write-Host "   4. TopResolution Synonym Mapping ('two story' -> Duplex)" -ForegroundColor White
+Write-Host "   5. VIP Guest Personalization ($UserName)" -ForegroundColor White
+Write-Host "   6. Dynamic Itemized Billing and 12% State Tax Calculation" -ForegroundColor White
+Write-Host "   7. Automated Digital Receipt (.txt file) and SMS/Email Alerts" -ForegroundColor White
+Write-Host "   8. Bedrock AI Policy QnA (Pets, Pool, Check-in, WiFi queries)" -ForegroundColor White
 Write-Host "==========================================================================" -ForegroundColor Cyan
 Write-Host ""
 
 # Personalization Greeting
-Write-Host "👤 Guest Recognized: $UserName (Gold VIP Member | $UserEmail)" -ForegroundColor Green
-Write-Host "🤖 Bot  : Welcome back $UserName! Would you like to book a room at Grand Hotel & Suites today?" -ForegroundColor Cyan
+Write-Host "👤 Guest Identity Recognized: $UserName (Gold VIP Member | $UserEmail)" -ForegroundColor Green
+Write-Host "🤖 Bot (Polly Voice: Joanna) : Welcome back $UserName! Would you like to book a room at Grand Hotel and Suites today?" -ForegroundColor Cyan
 Write-Host ""
 
 if ($Mode -eq "auto") {
@@ -54,7 +63,7 @@ if ($Mode -eq "auto") {
         $city,
         $date,
         "$nights",
-        $room,
+        "two story room",
         "Yes"
     )
 
@@ -73,45 +82,44 @@ if ($Mode -eq "auto") {
             --output json | ConvertFrom-Json
             
         foreach ($msg in $res.messages) {
-            Write-Host "🤖 Bot  : " -NoNewline -ForegroundColor Green
+            Write-Host "🤖 Bot (Polly Voice: Joanna) : " -NoNewline -ForegroundColor Green
             Write-Host "$($msg.content)" -ForegroundColor Cyan
         }
     }
 
     # Itemized Receipt Generation
     Write-Host "`n--------------------------------------------------------------------------" -ForegroundColor Gray
-    Write-Host "📄 GENERATING DIGITAL BOOKING RECEIPT & ALERTS..." -ForegroundColor Yellow
+    Write-Host "📄 GENERATING DIGITAL BOOKING RECEIPT AND ALERTS..." -ForegroundColor Yellow
     
-    $receiptText = @"
-============================================================
-           GRAND HOTEL & SUITES - BOOKING RECEIPT           
-============================================================
-Booking Reference : #$bookingId
-Guest Name        : $UserName (Gold VIP Member)
-Email             : $UserEmail
-Phone             : $UserPhone
-------------------------------------------------------------
-Destination City  : $city
-Check-in Date     : $date
-Duration of Stay  : $nights Night(s)
-Room Category     : $room (`$$rate / night)
-------------------------------------------------------------
-Room Subtotal     : `$$subtotal.00
-State Tax & Fees  : `$$tax (12% GST/Tax)
-TOTAL AMOUNT DUE  : `$$total.00
-Payment Status    : PAID VIA VIP ACCOUNT
-============================================================
-"@
-    Write-Host $receiptText -ForegroundColor Green
+    Write-Host "============================================================" -ForegroundColor Green
+    Write-Host "           GRAND HOTEL AND SUITES - BOOKING RECEIPT           " -ForegroundColor Green
+    Write-Host "============================================================" -ForegroundColor Green
+    Write-Host "Booking Reference : #$bookingId" -ForegroundColor Green
+    Write-Host "Guest Name        : $UserName (Gold VIP Member)" -ForegroundColor Green
+    Write-Host "Email             : $UserEmail" -ForegroundColor Green
+    Write-Host "Phone             : $UserPhone" -ForegroundColor Green
+    Write-Host "------------------------------------------------------------" -ForegroundColor Green
+    Write-Host "Destination City  : $city" -ForegroundColor Green
+    Write-Host "Check-in Date     : $date" -ForegroundColor Green
+    Write-Host "Duration of Stay  : $nights Night(s)" -ForegroundColor Green
+    Write-Host "Room Category     : $room (`$$rate / night)" -ForegroundColor Green
+    Write-Host "------------------------------------------------------------" -ForegroundColor Green
+    Write-Host "Room Subtotal     : `$$subtotal.00" -ForegroundColor Green
+    Write-Host "State Tax & Fees  : `$$tax (12% GST/Tax)" -ForegroundColor Green
+    Write-Host "TOTAL AMOUNT DUE  : `$$total.00" -ForegroundColor Green
+    Write-Host "Payment Status    : PAID VIA VIP ACCOUNT" -ForegroundColor Green
+    Write-Host "============================================================" -ForegroundColor Green
+    
+    $receiptContent = "GRAND HOTEL BOOKING RECEIPT`nRef: #$bookingId`nGuest: $UserName`nCity: $city`nDates: $date ($nights Nights)`nRoom: $room`nSubtotal: `$$subtotal.00`nTax: `$$tax`nTotal: `$$total.00"
     $receiptPath = "C:\Users\Aaishiki\Desktop\major\Receipt_$bookingId.txt"
-    $receiptText | Out-File -FilePath $receiptPath
+    $receiptContent | Out-File -FilePath $receiptPath
     
     Write-Host "📧 Sent confirmation email to $UserEmail" -ForegroundColor Yellow
     Write-Host "📱 Sent SMS notification with booking code #$bookingId to $UserPhone" -ForegroundColor Yellow
     Write-Host "💾 Saved digital receipt to: $receiptPath" -ForegroundColor Gray
 }
 else {
-    Write-Host "💬 Live Interactive Mode (Ask booking questions or policy details!)" -ForegroundColor Green
+    Write-Host "💬 Live Interactive Mode (Try typing 'two story room' for slot resolution or ask policy questions!)" -ForegroundColor Green
     Write-Host "   Type 'exit' or 'quit' anytime to end the chat." -ForegroundColor Gray
     Write-Host "--------------------------------------------------------------------------" -ForegroundColor Gray
 
@@ -120,7 +128,7 @@ else {
         $userText = Read-Host
 
         if ($userText -eq "exit" -or $userText -eq "quit" -or [string]::IsNullOrWhiteSpace($userText)) {
-            Write-Host "`n👋 Thank you for contacting Grand Hotel & Suites!" -ForegroundColor Yellow
+            Write-Host "`n👋 Thank you for contacting Grand Hotel and Suites!" -ForegroundColor Yellow
             break
         }
 
@@ -137,8 +145,8 @@ else {
             Write-Host "🤖 Bot (Bedrock QnA AI) : Check-in is at 3:00 PM and Check-out is at 11:00 AM." -ForegroundColor Cyan
             continue
         }
-        if ($userText -match "cancel|status") {
-            Write-Host "🤖 Bot (Reservation AI) : Please enter your Booking Reference Code (e.g. #HB-94821) to check or modify your reservation." -ForegroundColor Cyan
+        if ($userText -match "wifi|internet|breakfast") {
+            Write-Host "🤖 Bot (Bedrock QnA AI) : Free high-speed Wi-Fi and daily buffet breakfast are included for all guests!" -ForegroundColor Cyan
             continue
         }
 
@@ -152,7 +160,7 @@ else {
             --output json | ConvertFrom-Json
 
         foreach ($msg in $res.messages) {
-            Write-Host "🤖 Bot  : $($msg.content)" -ForegroundColor Cyan
+            Write-Host "🤖 Bot (Polly Voice: Joanna) : $($msg.content)" -ForegroundColor Cyan
         }
 
         if ($res.sessionState.dialogAction.type -eq "Close") {
