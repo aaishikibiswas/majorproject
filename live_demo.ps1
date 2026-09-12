@@ -22,6 +22,18 @@ $Rates = @{
     "Executive" = 320
 }
 
+# Dynamic Location-Based Tax & GST Rate Lookup Dictionary
+$CityTaxRates = @{
+    "mumbai"    = @{ "rate" = 0.18; "label" = "18% Indian GST" }
+    "delhi"     = @{ "rate" = 0.18; "label" = "18% Indian GST" }
+    "chicago"   = @{ "rate" = 0.12; "label" = "12% US Occupancy Tax" }
+    "new york"  = @{ "rate" = 0.1475; "label" = "14.75% NYC Hotel Tax" }
+    "london"    = @{ "rate" = 0.20; "label" = "20% UK Tourism VAT" }
+    "dubai"     = @{ "rate" = 0.07; "label" = "7% UAE Tourism Fee" }
+    "tokyo"     = @{ "rate" = 0.10; "label" = "10% Japan Consumption Tax" }
+    "paris"     = @{ "rate" = 0.10; "label" = "10% French Tourist VAT" }
+}
+
 # Session Tracking Variables
 $CurrentCity = "Chicago"
 $CurrentNights = 3
@@ -210,15 +222,24 @@ else {
         # When Booking is Confirmed (Fulfillment Closed)
         if ($res.sessionState.dialogAction.type -eq "Close" -and $res.sessionState.intent.confirmationState -eq "Confirmed") {
             
-            # Calculate Rates
+            # Calculate Nightly Rates & Dynamic City Tax
             $rate = 100
             if ($Rates.ContainsKey($CurrentRoom)) {
                 $rate = $Rates[$CurrentRoom]
             }
             if ($CurrentNights -le 0) { $CurrentNights = 3 }
 
+            # Dynamic City Tax Rate Lookup
+            $taxInfo = @{ "rate" = 0.12; "label" = "12% Regional Tax" }
+            $cityKey = $CurrentCity.ToLower()
+            if ($CityTaxRates.ContainsKey($cityKey)) {
+                $taxInfo = $CityTaxRates[$cityKey]
+            }
+            $taxRate = $taxInfo["rate"]
+            $taxLabel = $taxInfo["label"]
+
             $subtotal = $rate * $CurrentNights
-            $tax = [math]::Round($subtotal * 0.12, 2)
+            $tax = [math]::Round($subtotal * $taxRate, 2)
             $total = $subtotal + $tax
             $bookingId = "HB-" + (Get-Random -Minimum 10000 -Maximum 99999)
 
@@ -239,7 +260,7 @@ else {
             Write-Host "Room Category     : $CurrentRoom (`$$rate / night)" -ForegroundColor Green
             Write-Host "------------------------------------------------------------" -ForegroundColor Green
             Write-Host "Room Subtotal     : `$$subtotal.00" -ForegroundColor Green
-            Write-Host "State Tax & Fees  : `$$tax (12% GST/Tax)" -ForegroundColor Green
+            Write-Host "Local Tax / Fees  : `$$tax ($taxLabel)" -ForegroundColor Green
             Write-Host "TOTAL AMOUNT DUE  : `$$total.00" -ForegroundColor Green
             Write-Host "Payment Status    : PAID VIA VIP ACCOUNT" -ForegroundColor Green
             Write-Host "============================================================" -ForegroundColor Green
